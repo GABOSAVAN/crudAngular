@@ -1,0 +1,35 @@
+form{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 40%;
+}
+
+mat-form-field{
+    background-color: aqua;
+    padding: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;   
+    
+}
+
+input, textarea{
+    margin-left: -2px;
+    width: 100%;
+}
+
+div{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media(max-width: 460px) {
+
+    div{
+        display: flex;
+        flex-direction: column;
+    }   
+    
+}
