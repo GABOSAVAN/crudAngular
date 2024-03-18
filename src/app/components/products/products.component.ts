@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../service/products.service';
 import { Product } from '../../models/product';
-import { FormProductComponent }  from '../form-product/form-product.component'
+import { MaterialModule } from '../../material';
 
 @Component({
   selector: 'app-products',
@@ -11,9 +11,9 @@ import { FormProductComponent }  from '../form-product/form-product.component'
 export class ProductsComponent implements OnInit {
 
   products: Product[] = []; // Lista de productos obtenidos del localStorage
-  productsLocal: Product[] = [];
   showForm = false; // Bandera para mostrar/ocultar el formulario de actualización
   selectedProduct: Product | null = null; // Producto seleccionado para actualizar
+  productsLocal: Product[] = [];
 
   constructor(private productsService: ProductsService) { }
 
@@ -24,14 +24,14 @@ export class ProductsComponent implements OnInit {
 loadsProducts(){
   this.productsService.getProducts().subscribe(products => {
   this.products = products;
-  this.saveLocalProducts()
+  this.productsService.saveLocalProducts()
   });
   this.productsLocal = this.productsService.getLocalProducts();
 }
 
-  saveLocalProducts() {
-    localStorage.setItem('products', JSON.stringify(this.products));
-  }
+  // saveLocalProducts() {
+  //   localStorage.setItem('products', JSON.stringify(this.products));
+  // }
   
   showUpdateForm(product: Product) {
     this.showForm = true;
