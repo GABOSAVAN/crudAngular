@@ -13,7 +13,7 @@ export class ProductsService {
   productsLocal: Product[] = [];
   showForm = false; // Bandera para mostrar/ocultar el formulario de actualización
   selectedProduct: Product | null = null; // Producto seleccionado para actualizar
-
+  
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
@@ -26,6 +26,11 @@ export class ProductsService {
     this.saveLocalProducts()
     });
     this.productsLocal = this.getLocalProducts();
+  }
+
+  restart(){
+    this.loadsProducts();
+    console.log('Restarting...');
   }
 
   getLocalProducts(): Product[] {
