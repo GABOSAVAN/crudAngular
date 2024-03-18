@@ -14,6 +14,8 @@ export class AppComponent {
   
   constructor(public productsService: ProductsService) { }
   
-
+  restart(){
+    this.productsService.loadsProducts();
+  }
  
 }
