@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +13,8 @@ export class ProductsService {
   productsLocal: Product[] = [];
   showForm = false; // Bandera para mostrar/ocultar el formulario de actualización
   selectedProduct: Product | null = null; // Producto seleccionado para actualizar
-  
+  private productsUpdated = new Subject<Product[]>(); // Subject para notificar actualizaciones
+
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
@@ -26,11 +27,18 @@ export class ProductsService {
     this.saveLocalProducts()
     });
     this.productsLocal = this.getLocalProducts();
+    this.productsUpdated.next([...this.products]);
   }
 
   restart(){
-    this.loadsProducts();
-    console.log('Restarting...');
+     this.loadsProducts();
+     this.productsUpdated.next([...this.products]);
+     console.log('Restarting...');
+  
+};
+
+  getProductsUpdatedListener() {
+    return this.productsUpdated.asObservable(); // Observable para suscribirse a actualizaciones
   }
 
   getLocalProducts(): Product[] {
