@@ -3,6 +3,7 @@ import { ProductsService } from '../../service/products.service';
 import { Product } from '../../models/product';
 import { MaterialModule } from '../../material';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -15,7 +16,7 @@ export class ProductsComponent implements OnInit {
   showForm = false; // Bandera para mostrar/ocultar el formulario de actualización
   productsSubscription!: Subscription;
 
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: ProductsService, private router: Router) { }
 
   ngOnInit() {
     this.productsService.loadsProducts();
@@ -38,5 +39,15 @@ ngOnDestroy() {
     this.productsService.deleteProduct(productToDelete);
     this.products = this.productsService.getLocalProducts();
 }
+
+navigateToProductDetail() {
+  this.router.navigate(['/product-detail']);
+}
+
+navigateToFormProduct() {
+  this.router.navigate(['/form-product']);
+}
+
+
 }
 
